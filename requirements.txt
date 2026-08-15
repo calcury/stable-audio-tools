@@ -51,9 +51,9 @@ wandb==0.25.0
 # 其余官方 [train] extra（其他模型类型才用到；一并装好，服务器一次性备齐，实测可一起解析）：
 descript-audio-codec==1.0.0   # dac：autoencoder 类模型（stable-audio-2.0 VAE）
 encodec==0.1.1                # EnCodec 编解码模型
-laion-clap==1.1.4             # CLAP 文本条件 / FAD 评估（依赖 torchvision）
 torchmetrics==0.11.4
 pandas==2.0.2
 
-# 注意：上游 pyproject 的 train extra 还含 inf-cl，但当前 PyPI 无法解析（ResolutionImpossible），
-# 暂不安装；如后续训练用到对应模型，再单独处理。
+# 以下两个官方 train extra 因硬性版本冲突暂不安装（FMA/stable-audio-open 训练都用不到，按需时单独装）：
+#   laion-clap==1.1.4  # 强制 numpy==1.23.5，与 requirements 的 numpy==2.2.6 冲突；只在 FAD 评估 / CLAP 条件模型用
+#   inf-cl             # 当前 PyPI 无法解析（ResolutionImpossible）
