@@ -203,7 +203,7 @@ def main():
 
     trainer = pl.Trainer(
         devices="auto",
-        accelerator="gpu",
+        accelerator="auto",
         num_nodes = args.num_nodes,
         strategy=strategy,
         precision=args.precision,

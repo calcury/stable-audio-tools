@@ -166,3 +166,4 @@ wandb/*
 test_*
 
 data/*
+logs/*

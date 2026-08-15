@@ -71,7 +71,8 @@ class ResidualBlock(nn.Module):
         return self.main(input) + self.skip(input)
 
 class ResConvBlock(ResidualBlock):
-    def __init__(self, c_in, c_mid, c_out, is_last=False, kernel_size=5, conv_bias=True):
+    def __init__(self, c_in, c_mid, c_out, is_last=False, kernel_size=5, conv_bias=True, use_snake=False):
+        # use_snake 仅用于兼容 DiffusionAttnUnet1D 的无条件传参；本块用 GELU 激活，不实现 snake
         skip = None if c_in == c_out else nn.Conv1d(c_in, c_out, 1, bias=False)
         super().__init__([
             nn.Conv1d(c_in, c_mid, kernel_size, padding=kernel_size//2, bias=conv_bias),

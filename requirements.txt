@@ -30,9 +30,30 @@ tqdm
 importlib-resources==5.12.0
 setuptools<81
 
-# --- UI ---
+# --- UI & Train ---
 gradio==6.24.0
 matplotlib==3.10.9
 pytorch_lightning==2.6.5
 prefigure==0.0.10
 webdataset==1.0.2
+
+# --- Training 完整依赖（stable-audio-tools 官方 [train] extra）---
+# 前 3 个是训练 wrapper 顶层 import，缺了 train.py 无法启动：
+#   auraloss            -> stable_audio_tools/training/diffusion.py 顶层 import
+#   descript-audiotools -> stable_audio_tools/training/losses/semantic.py 顶层 import
+#   wandb               -> stable_audio_tools/training/utils.py 顶层 import（--logger none 也必须有）
+# ⚠️ 不要钉 protobuf>=5：descript-audiotools 声明 protobuf<3.20，钉了 pip 直接 ResolutionImpossible。
+#   由 pip 自由解析，最终落在 protobuf 3.19.6 + wandb 0.25.0（实测可正常 import）。
+auraloss==0.4.0
+descript-audiotools==0.7.2
+wandb==0.25.0
+
+# 其余官方 [train] extra（其他模型类型才用到；一并装好，服务器一次性备齐，实测可一起解析）：
+descript-audio-codec==1.0.0   # dac：autoencoder 类模型（stable-audio-2.0 VAE）
+encodec==0.1.1                # EnCodec 编解码模型
+laion-clap==1.1.4             # CLAP 文本条件 / FAD 评估（依赖 torchvision）
+torchmetrics==0.11.4
+pandas==2.0.2
+
+# 注意：上游 pyproject 的 train extra 还含 inf-cl，但当前 PyPI 无法解析（ResolutionImpossible），
+# 暂不安装；如后续训练用到对应模型，再单独处理。
