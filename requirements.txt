@@ -52,7 +52,7 @@ wandb==0.25.0
 descript-audio-codec==1.0.0   # dac：autoencoder 类模型（stable-audio-2.0 VAE）
 encodec==0.1.1                # EnCodec 编解码模型
 torchmetrics==0.11.4
-pandas==2.0.2
+pandas==2.3.3
 
 # 以下两个官方 train extra 因硬性版本冲突暂不安装（FMA/stable-audio-open 训练都用不到，按需时单独装）：
 #   laion-clap==1.1.4  # 强制 numpy==1.23.5，与 requirements 的 numpy==2.2.6 冲突；只在 FAD 评估 / CLAP 条件模型用
